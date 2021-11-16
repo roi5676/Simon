@@ -4,18 +4,27 @@ var gamePattern = [];
 
 var userClickedPattern = [];
 
-//var started = false;
+var started = false;
 var level = 0;
 
 $("#level-title").text("Press A Key to Start");
 
-$(document).keypress(function(){
-    if(level === 0){
+// $(document).keypress(function(){
+//     if(started === false){
+//         $("#level-title").text("Level " + level);
+//         nextSequence();
+//         started = true;
+//     }
+    
+// });
+
+$(".button-71").click(function(){
+
+    if(started === false){
         $("#level-title").text("Level " + level);
         nextSequence();
-        //started = true;
+        started = true;
     }
-    
 });
 
 $(".btn").click(function(){
@@ -40,7 +49,7 @@ function checkAnswer(currentLevel){
                 nextSequence();
             }, 1000);
         } 
-    }   
+    }
     else {
 
         playSound("wrong");
@@ -63,9 +72,9 @@ function nextSequence(){
     level++;
     $("#level-title").text("Level " + level);
     gamePattern.push(randomChosenColour);
-
-    $("#"+ randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
-    playSound(randomChosenColour);
+    reversePress();
+    //$("#"+ randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
+    //playSound(randomChosenColour);
 }
 
 function playSound(name){
@@ -93,5 +102,26 @@ function animatePress(currentColor){
 function startOver(){
     level = 0;
     gamePattern = [];
-    //started = false;
+    started = false;
+}
+
+let myInterval;
+let myIntervalCount;
+function reversePress(){
+    
+    myIntervalCount = 0;
+    myInterval = setInterval(ttt, 500);
+
+}
+
+function ttt(){
+    //alert('b');
+
+    $("#"+ gamePattern[myIntervalCount]).fadeIn(100).fadeOut(100).fadeIn(100);
+    playSound(gamePattern[myIntervalCount]);
+
+    myIntervalCount++;
+    if (myIntervalCount === gamePattern.length){
+        clearInterval(myInterval);
+    }
 }
